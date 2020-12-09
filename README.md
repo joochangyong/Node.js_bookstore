@@ -6,3 +6,4 @@ Node.js를 이용한 온라인 서점
 ## 구현 기술:computer:
 * Node.js
 * ejs
+* MySQL
