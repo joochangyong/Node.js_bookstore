@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>BookStore</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <!-- Custom styles for this template -->
+  <!-- <link href="carousel.css" rel="stylesheet"> -->
+
+</head>
+<!-- NAVBAR
+================================================== -->
+
+<body>
+  <header>
+    <div class="navbar-wrapper">
+      <% include ./main/nav %>
+    </div>
+  </header>
+  <button disabled class="" style="background-color: white;  border:white; color: black; font-size: 250%; margin-left: 9.5%;">장바구니목록</button>
+  <form class="form-signin" method="post" action="/basket">
+    <table style="border: 1px solid black ; width: 1000px; margin-left: 10%;">
+      <tr style="font-size: 130%;">
+        <td> 책제목 </td>
+        <td> 출판사 </td>
+        <td> 저자 </td>
+        <td> 가격 </td>
+        <td> 수량 </td>
+        <td colspan="2"> 합계 </td>
+      </tr>
+      <% for(var i = 0; i < book.length; i++){%>
+      <tr>
+        <td> <%= book[i].BookName %> </td>
+        <td> <%= book[i].publish%> </td>
+        <td> <%= book[i].stock%> </td>
+        <td> <%= book[i].price%> </td>
+        <td> <%= book[i].count%> </td>
+        <td> <%= book[i].count * book[i].price %> </td>
+        <!-- <% var price = user.bookSum * book[0].price %>
+          <input type="hidden" name="totalPrice" id="totalPrice" value="<%= price %>"> -->
+        <td>
+          <% if(user.userid != null) { %>
+          <a href="/delete3/<%=book[i].BookNum%>" style="border: 1px solid white; color: white; background-color: #222222;" class="btn btn-outline-primary">삭제</a>
+          <% } else { %>
+          <% } %>
+        </td>
+      </tr>
+      <%} %>
+    </table>
+    <% var sum = 0 %> 
+    <% for(var i = 0; i < book.length; i++){%>
+    <input hidden value="<%= sum += book[i].count * book[i].price * user.discount%> ">
+    <% } %>
+    <h1 class="form-signin-heading" style="margin-left: 57%;">총금액 : <%= sum%></h1>
+    <select name="card" id="card" style="margin-left:61%">
+      <option>---카드선택---</option>
+      <% for(var i = 0; i< card.length; i++) { %>
+      <option value="<%=card[i].CardNum%>"><%= card[i].CardNum %></option>
+      <% } %>
+    </select>
+    <select name="address" id="address" style="margin-left: auto;">
+      <option>---배송지선택---</option>
+      <% for(var j = 0; j< address.length; j++) { %>
+      <option value="<%=address[j].AddressNum%>"><%= address[j].PriAddress +" "+ address[j].DetAddress %>
+      </option>
+      <% } %>
+    </select>
+    <input type="submit" value="주문" name="orders" style="margin-left: 78.5%; color: white; background-color: #222222;" class="btn btn-outline-primary"></input>
+  </form>

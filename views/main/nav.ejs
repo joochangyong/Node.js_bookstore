@@ -1,0 +1,45 @@
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <button disabled class="" style="background-color: #222222; border: #222222; color: white; font-size: 220%">서점</button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+                <li><a href="/"  style="float: left; color: white; background-color: #222222;">Home</a></li>
+                <li><a href="/list" style="float: left; color: white; background-color: #222222;">list</a></li>
+
+
+                <li><a href="#" style="float: left"></a></li>
+                <li><a href="#" style="float: left"></a></li>
+                <li><a href="#" style="float: left"></a></li>
+
+                <form class="navbar-form" style="float: left;" action="/list" method="POST">
+                    <input type="text" class="form-control" name="searchItem" style="width: 500px"
+                        placeholder="Search...">
+                    <button type="submit" style="border: 1px solid white; color: white; background-color: #222222;" class="btn btn-outline-primary" >search</button>
+                </form>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if(user.userid == null) { %>
+                <li><a href="/sign_up" style="color: white; background-color: #222222;" class="btn btn-outline-primary">회원가입</a></li>
+                <% } else { %>
+                <li><a href="/mypage" style="color: white; background-color: #222222;" class="btn btn-outline-primary">마이페이지</a></li>
+                <% } %>
+                <% if(user.userid == null) { %>
+                <li><a href="/login" style="color: white; background-color: #222222;" class="btn btn-outline-primary">로그인</a></li>
+                <% } else { %>
+                <li><a href="/logout" style="color: white; background-color: #222222;" class="btn btn-outline-primary">로그아웃</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

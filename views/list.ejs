@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>BookStore</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <!-- Custom styles for this template -->
+  <!-- <link href="carousel.css" rel="stylesheet"> -->
+
+</head>
+<!-- NAVBAR
+================================================== -->
+
+<body>
+  <header>
+    <div class="navbar-wrapper">
+      <% include ./main/nav %>
+    </div>
+  </header>
+  <button disabled class="" style="background-color: white;  border:white; color: black; font-size: 250%; margin-left: 24.5%;">도서목록</button>
+  <form class="form-signin" method="post" action="/basket">
+    <table style="border: 1px solid black ; width: 700px; margin-left: 25%;">
+      
+      <tr style="font-size: 150%;">
+        <td> 책번호 </td>
+        <td> 책제목 </td>
+        <td> 출판사 </td>
+        <td> 저자 </td>
+        <td> 가격 </td>
+        <td> 재고량 </td>
+      </tr>
+      <tr>
+        <% for(var i = 0; i < book.length; i++){%>
+        <td> <%= book[i].BookNum %> </td>
+        <td> <a href="/bookInfo/<%=book[i].BookNum%>" style="color:red"><%= book[i].BookName %></a> </td>
+        <td> <%= book[i].publish %> </td>
+        <td> <%= book[i].stock %> </td>
+        <td> <%= book[i].price %> </td>
+        <td> <%= book[i].bookAmount %> </td>
+      </tr>
+      <%} %>
+      <% if(user.userid == 'master') { %>
+      <tr>
+        <td colspan="6" style="text-align: right">
+          <a href="/add" style="color: white; background-color: #222222;" class="btn btn-outline-primary">등록</a>
+        </td>
+      </tr>
+      <% } %>
+
+
+    </table>
+  </form>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
